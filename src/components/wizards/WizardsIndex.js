@@ -44,7 +44,7 @@ const WizardsIndex = (props) => {
         return <p>Error!</p>
     }
 
-    if (!pets) {
+    if (!wizards) {
         // if no wizards loaded yet, display 'loading'
         return <LoadingScreen />
     } else if (wizards.length === 0) {
