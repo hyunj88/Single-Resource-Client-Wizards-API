@@ -79,7 +79,7 @@ const App = () => {
 					</RequireAuth>}
 				/>
 				<Route 
-					path='wizards/:id'
+					path='/wizards/:id'
 					element={ <ShowWizard user={user} msgAlert={msgAlert} /> }
 				/>
 				</Routes>

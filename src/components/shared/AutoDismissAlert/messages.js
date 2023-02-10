@@ -8,7 +8,11 @@ const messages = {
 	changePasswordFailure:'Failed to change passwords. Check your old password and try again.',
 	getWizardsFailure: 'Failed to retrieve Wizard.',
 	createWizardSuccess: 'New Wizard has been created!',
-	createWizardFailure: 'Failed to create new wizard, please try again'
+	createWizardFailure: 'Failed to create new wizard, please try again',
+	updateWizardSuccess: 'Wizard has been updated!',
+	updateWizardFailure: 'Failed to update Wizard, please try again',
+	removeWizardSuccess: 'This wizard has been set deleted!',
+	removeWizardFailure: 'Something went wrong, please try again',
 }
 
 module.exports = messages

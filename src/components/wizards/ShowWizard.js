@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react'
 
 // useParams from react-router-dom allows us to see our route parameters
-import { useParams } from 'react-router-dom'
-
+import { useParams, useNavigate } from 'react-router-dom'
 import { Container, Card, Button } from 'react-bootstrap'
-
-import { getOneWizard } from '../../api/wizards'
-
+import { getOneWizard, removeWizard, updateWizard } from '../../api/wizards'
 import messages from '../shared/AutoDismissAlert/messages'
-
 import LoadingScreen from '../shared/LoadingScreen'
+import EditWizardModal from './EditWizardModal'
 
 // we need to get the wizard's id from the route parameters
 // then we need to make a request to the api
@@ -17,12 +14,13 @@ import LoadingScreen from '../shared/LoadingScreen'
 
 const ShowWizard = (props) => {
     const [wizard, setWizard] = useState(null)
+    const [editModalShow, setEditModalShow] = useState(false)
+    const [updated, setUpdated] = useState(false)
 
     const { id } = useParams()
+    const navigate = useNavigate()
 
     const { user, msgAlert } = props
-    console.log('user in ShowWizard props', user)
-    console.log('msgAlert in ShowWizard props', msgAlert)
 
     useEffect(() => {
         getOneWizard(id)
@@ -34,7 +32,26 @@ const ShowWizard = (props) => {
                     variant: 'danger'
                 })
             })
-    }, [])
+    }, [updated])
+
+    const deleteWizard = () => {
+        removeWizard(user, wizard.id)
+            .then(() => {
+                msgAlert({
+                    heading: 'Success',
+                    message: messages.removeWizardSuccess,
+                    variant: 'success'
+                })
+            })
+            .then(() => {navigate('/')})
+            .catch(err => {
+                msgAlert({
+                    heading: 'Error',
+                    message: messages.removeWizardFailure,
+                    variant: 'danger'
+                })
+            })
+    }
 
     if(!wizard) {
         return <LoadingScreen />
@@ -54,8 +71,39 @@ const ShowWizard = (props) => {
                             </div>
                         </Card.Text>
                     </Card.Body>
+                    <Card.Footer>
+                        {
+                           wizard.owner && user && wizard.owner._id === user._id
+                           ?
+                            <>
+                                <Button 
+                                    className="m-2" variant="warning"
+                                    onClick={() => setEditModalShow(true)}
+                                >
+                                    Edit {wizard.name}
+                                </Button>
+                                <Button 
+                                    className="m-2" variant="danger"
+                                    onClick={() => deleteWizard()}
+                                >
+                                    Delete {wizard.name}
+                                </Button> 
+                            </>
+                            :
+                            null
+                        }
+                    </Card.Footer>
                 </Card>
             </Container>
+            <EditWizardModal 
+                user={user}
+                show={editModalShow}
+                handleClose={() => setEditModalShow(false)}
+                updateWizard={updateWizard}
+                msgAlert={msgAlert}
+                triggerRefresh={() => setUpdated(prev => !prev)}
+                wizard={wizard}
+            />
         </>
     )
 }

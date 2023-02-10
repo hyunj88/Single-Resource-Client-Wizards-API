@@ -25,5 +25,24 @@ export const createWizard = (user, newWizard) => {
 }
 
 // Update (update a wizard)
+export const updateWizard = (user, updatedWizard) => {
+    return axios({
+        url: `${apiUrl}/wizards/${updatedWizard.id}`,
+        method: 'PATCH',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        data: { pet: updatedWizard }
+    })
+}
 
 // Delete (delete a wizard)
+export const removeWizard = (user, wizardId) => {
+    return axios({
+        url: `${apiUrl}/wizards/${wizardId}`,
+        method: 'DELETE',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        }
+    })
+}
