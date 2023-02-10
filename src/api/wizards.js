@@ -13,6 +13,16 @@ export const getOneWizard = (id) => {
 }
 
 // Create (create a wizard)
+export const createWizard = (user, newWizard) => {
+    return axios({
+        url: `${apiUrl}/wizards`,
+        method: 'POST',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        data: { wizard: newWizard }
+    })
+}
 
 // Update (update a wizard)
 

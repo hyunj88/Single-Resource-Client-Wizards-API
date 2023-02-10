@@ -1,4 +1,5 @@
 // import React, { Component, Fragment } from 'react'
+import './App.css'
 import React, { useState, Fragment } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
@@ -13,6 +14,7 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import ShowWizard from './components/wizards/ShowWizard'
+import CreateWizard from './components/wizards/CreateWizard'
 
 const App = () => {
 
@@ -67,6 +69,13 @@ const App = () => {
 					element={
 					<RequireAuth user={user}>
 						<ChangePassword msgAlert={msgAlert} user={user} />
+					</RequireAuth>}
+				/>
+				<Route
+					path='/create-wizard'
+					element={
+					<RequireAuth user={user}>
+						<CreateWizard msgAlert={msgAlert} user={user} />
 					</RequireAuth>}
 				/>
 				<Route 
