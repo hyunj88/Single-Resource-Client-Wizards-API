@@ -74,7 +74,7 @@ const CreateWizard = (props) => {
             wizard={wizard}
             handleChange={onChange}
             handleSubmit={onSubmit}
-            heading="Add a new Wizard!"
+            heading="Add a new Witch or Wizard!"
         />
     )
 }

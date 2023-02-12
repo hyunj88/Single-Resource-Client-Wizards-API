@@ -13,6 +13,8 @@ const messages = {
 	updateWizardFailure: 'Failed to update Wizard, please try again',
 	removeWizardSuccess: 'This wizard has been set deleted!',
 	removeWizardFailure: 'Something went wrong, please try again',
+	createWandSuccess: 'Great! Now the wizard can cast spells!',
+	createWandFailure: 'Something went wrong, please try again'
 }
 
 module.exports = messages

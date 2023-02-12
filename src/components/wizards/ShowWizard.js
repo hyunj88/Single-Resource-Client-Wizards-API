@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-
 // useParams from react-router-dom allows us to see our route parameters
 import { useParams, useNavigate } from 'react-router-dom'
 import { Container, Card, Button } from 'react-bootstrap'
@@ -15,6 +14,7 @@ import EditWizardModal from './EditWizardModal'
 const ShowWizard = (props) => {
     const [wizard, setWizard] = useState(null)
     const [editModalShow, setEditModalShow] = useState(false)
+    const [wandModalShow, setWandModalShow] = useState(false)
     const [updated, setUpdated] = useState(false)
 
     const { id } = useParams()
@@ -72,6 +72,12 @@ const ShowWizard = (props) => {
                         </Card.Text>
                     </Card.Body>
                     <Card.Footer>
+                    <Button 
+                            className="m-2" variant="info"
+                            onClick={() => setWandModalShow(true)}
+                        >
+                            Give {wizard.name} a wand!
+                        </Button>
                         {
                            wizard.owner && user && wizard.owner._id === user._id
                            ?
