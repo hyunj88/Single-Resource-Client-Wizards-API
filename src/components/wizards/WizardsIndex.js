@@ -21,11 +21,8 @@ const cardContainerStyle = {
 const WizardsIndex = (props) => {
     const [wizards, setWizards] = useState(null)
     const [error, setError] = useState(false)
-
-    // pull the message alert (msgAlert) from props
     const { msgAlert } = props
 
-    // get our wizards from the api when the component mounts
     useEffect(() => {
         getAllWizards()
             .then(res => setWizards(res.data.wizards))
@@ -61,6 +58,11 @@ const WizardsIndex = (props) => {
                 <Card.Text>
                     <Link to={`/wizards/${wizard.id}`} className="btn btn-info">View { wizard.name }</Link>
                 </Card.Text>
+                {wizard.owner ?
+                <Card.Footer>
+                     owner { wizard.owner.email }
+                </Card.Footer>
+                : null}
             </Card.Body>
         </Card>
     ))

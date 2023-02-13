@@ -6,10 +6,14 @@ import { getOneWizard, removeWizard, updateWizard } from '../../api/wizards'
 import messages from '../shared/AutoDismissAlert/messages'
 import LoadingScreen from '../shared/LoadingScreen'
 import EditWizardModal from './EditWizardModal'
+import ShowWand from '../wands/ShowWand'
+import NewWandModal from '../wands/EditWandModal'
 
-// we need to get the wizard's id from the route parameters
-// then we need to make a request to the api
-// when we retrieve a wizard from the api, we'll render the data on the screen
+const wandCardContainerLayout = {
+    display: 'flex',
+    justifyContent: 'center',
+    flexFlow: 'row wrap'
+}
 
 const ShowWizard = (props) => {
     const [wizard, setWizard] = useState(null)
@@ -21,6 +25,8 @@ const ShowWizard = (props) => {
     const navigate = useNavigate()
 
     const { user, msgAlert } = props
+    console.log('user in ShowWand props', user)
+    console.log('msgAlert in ShowWizard props', msgAlert)
 
     useEffect(() => {
         getOneWizard(id)
@@ -51,6 +57,22 @@ const ShowWizard = (props) => {
                     variant: 'danger'
                 })
             })
+    }
+
+    let wandCards
+    if (wizard) {
+        if (wizard.wands.length > 0) {
+            wandCards = wizard.wands.map(wand => (
+                <ShowWand
+                    key={wand.id} 
+                    wand={wand}
+                    user={user}
+                    wizard={wizard}
+                    msgAlert={msgAlert}
+                    triggerRefresh={() => setUpdated(prev => !prev)}
+                />
+            ))
+        }
     }
 
     if(!wizard) {
@@ -101,6 +123,9 @@ const ShowWizard = (props) => {
                     </Card.Footer>
                 </Card>
             </Container>
+            <Container className="m-2" style={wandCardContainerLayout}>
+                {wandCards}
+            </Container>
             <EditWizardModal 
                 user={user}
                 show={editModalShow}
@@ -109,6 +134,13 @@ const ShowWizard = (props) => {
                 msgAlert={msgAlert}
                 triggerRefresh={() => setUpdated(prev => !prev)}
                 wizard={wizard}
+            />
+            <NewWandModal 
+                wizard={wizard}
+                show={wandModalShow}
+                handleClose={() => setWandModalShow(false)}
+                msgAlert={msgAlert}
+                triggerRefresh={() => setUpdated(prev => !prev)}
             />
         </>
     )

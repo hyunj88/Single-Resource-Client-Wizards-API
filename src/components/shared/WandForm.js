@@ -2,7 +2,7 @@
 import { Form, Button, Container } from 'react-bootstrap'
 
 const WandForm = (props) => {
-    const { toy, handleChange, handleSubmit, heading } = props
+    const { wand, handleChange, handleSubmit, heading } = props
 
     return (
         <Container className="justify-content-center">

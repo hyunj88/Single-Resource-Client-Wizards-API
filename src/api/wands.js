@@ -10,3 +10,28 @@ export const createWand = (wizardId, newWand) => {
         data: { wand: newWand }
     })
 }
+
+// UPDATE
+// /wands/:wizardId/:wandId
+export const updateWand = (user, wizardId, updatedWand ) => {
+    return axios({
+        url: `${apiUrl}/wands/${wizardId}/${updatedWand._id}`,
+        method: 'PATCH',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        data: { wand: updatedWand }
+    })
+}
+
+// DELETE
+// /wands/:wizardId/:wandId
+export const deleteWand = (user, wizardId, wandId ) => {
+    return axios({
+        url: `${apiUrl}/wands/${wizardId}/${wandId}`,
+        method: 'DELETE',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        }
+    })
+}
